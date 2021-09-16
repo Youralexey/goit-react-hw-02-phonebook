@@ -4,10 +4,10 @@ import {
   Container,
   Title,
   SectionTitle,
-} from "./components/Container/Container.styled.jsx";
-import Form from "./components/Form/Form.jsx";
-import ContactList from "./components/ContactList/ContactList.jsx";
-import Input from "./components/Input/Input.jsx";
+} from "./Container/Container.styled.jsx";
+import Form from "./Form/Form.jsx";
+import ContactList from "./ContactList/ContactList.jsx";
+import Input from "./Input/Input.jsx";
 
 export default class App extends Component {
   state = {
@@ -51,10 +51,18 @@ export default class App extends Component {
       contact.name.toLowerCase().includes(normaliseFilter)
     );
   };
+  showContacts = () => {
+    const { filter, contacts } = this.state;
+    const lowerSymbol = filter.toLowerCase();
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(lowerSymbol)
+    );
+  };
 
   render() {
     const { filter } = this.state;
     const filteredContacts = this.getFilteredContacts();
+    const showContacts = this.showContacts();
 
     return (
       <Container>
@@ -68,7 +76,7 @@ export default class App extends Component {
           onChange={this.changeFilter}
         />
         <ContactList
-          contacts={filteredContacts}
+          contacts={[filteredContacts, showContacts]}
           onDeleteContact={this.handleDelete}
         />
       </Container>
