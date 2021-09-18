@@ -51,18 +51,10 @@ export default class App extends Component {
       contact.name.toLowerCase().includes(normaliseFilter)
     );
   };
-  showContacts = () => {
-    const { filter, contacts } = this.state;
-    const lowerSymbol = filter.toLowerCase();
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(lowerSymbol)
-    );
-  };
 
   render() {
     const { filter } = this.state;
     const filteredContacts = this.getFilteredContacts();
-    const showContacts = this.showContacts();
 
     return (
       <Container>
@@ -76,7 +68,7 @@ export default class App extends Component {
           onChange={this.changeFilter}
         />
         <ContactList
-          contacts={[filteredContacts, showContacts]}
+          contacts={filteredContacts}
           onDeleteContact={this.handleDelete}
         />
       </Container>
